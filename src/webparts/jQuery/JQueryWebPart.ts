@@ -10,7 +10,7 @@ import styles from './JQueryWebPart.module.scss';
 import * as strings from 'JQueryWebPartStrings';
 
 export interface IJQueryWebPartProps {
-  description: string;
+  description: string; 
 }
 
 export default class JQueryWebPart extends BaseClientSideWebPart<IJQueryWebPartProps> {
