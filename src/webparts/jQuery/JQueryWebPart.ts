@@ -1,4 +1,8 @@
 import { Version } from '@microsoft/sp-core-library';
+import MyAccordionTemplate from './MyAccordionTemplate';
+import * as jQuery from 'jquery';
+import 'jqueryui';
+import { SPComponentLoader } from '@microsoft/sp-loader';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -28,7 +32,23 @@ export interface IJQueryWebPartProps {
 
 export default class JQueryWebPart extends BaseClientSideWebPart<IJQueryWebPartProps> {
 
+  public constructor() {
+    super();
+  
+    SPComponentLoader.loadCss('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css');
+  }
   public render(): void {
+    this.domElement.innerHTML = MyAccordionTemplate.templateHtml;
+    const accordionOptions: JQueryUI.AccordionOptions = {
+      animate: true,
+      collapsible: false,
+      icons: {
+        header: 'ui-icon-circle-arrow-e',
+        activeHeader: 'ui-icon-circle-arrow-s'
+      }
+    };
+    jQuery('.accordion', this.domElement).accordion(accordionOptions);
+    /*
     this.domElement.innerHTML = `
       <div class="${ styles.jQuery }">
         <div class="${ styles.container }">
@@ -53,6 +73,7 @@ export default class JQueryWebPart extends BaseClientSideWebPart<IJQueryWebPartP
           </div>
         </div>
       </div>`;
+      */
   }
 
   protected get dataVersion(): Version {
